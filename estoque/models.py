@@ -29,7 +29,7 @@ class EstoqueItens(models.Model):
     saldo = models.PositiveIntegerField()
 
     class Meta:
-        orderig = ('pk',)
+        ordering = ('pk',)
 
     def __str__(self):
         return '{} - {} - {}'.format(self.pk, self.estoque.pk, self.produto)
