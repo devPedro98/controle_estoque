@@ -6,4 +6,5 @@ app_name = 'estoque'
 
 urlpatterns = [
     path('', v.estoque_entrada_list, name='url_estoque_entrada_list'),
+    path('<int:pk>/', v.estoque_entrada_detail, name='url_estoque_entrada_detail'),
 ]
