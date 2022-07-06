@@ -6,9 +6,9 @@ app_name = 'estoque'
 
 urlpatterns = [
     path('', v.estoque_entrada_list, name='url_estoque_entrada_list'),
-    path('<int:pk>/', v.estoque_entrada_detail, name='url_estoque_entrada_detail'),
+    path('<int:pk>/', v.estoque_entrada_detail, name='url_estoque_entrada_detail'), # noqa
     path('add/', v.estoque_entrada_add, name='url_estoque_entrada_add'),
     path('saida/', v.estoque_saida_list, name='url_estoque_saida_list'),
-    path('saida/<int:pk>/', v.estoque_saida_detail, name='url_estoque_saida_detail'),
+    path('saida/<int:pk>/', v.estoque_saida_detail, name='url_estoque_saida_detail'), # noqa
     path('saida/add/', v.estoque_saida_add, name='url_estoque_saida_add'),
 ]

@@ -8,17 +8,18 @@ from .models import Estoque, EstoqueEntrada, EstoqueItens, EstoqueSaida
 
 
 def estoque_entrada_list(request):
-    template_name = 'estoque/estoque_entrada_list.html'
+    template_name = 'estoque/estoque_list.html'
     objects = EstoqueEntrada.objects.all()
-    context = {'object_list': objects}
+    context = {'object_list': objects, 'titulo': 'Entrada', 'url_add': 'estoque:url_estoque_entrada_add'} # noqa
     return render(request, template_name, context)
 
-    
+
 def estoque_entrada_detail(request, pk):
     template_name = 'estoque/estoque_entrada_detail.html'
     obj = EstoqueEntrada.objects.get(pk=pk)
     context = {'object': obj}
     return render(request, template_name, context)
+
 
 def dar_baixa_estoque(form):
     '''Pega os produtos a partir da instância do formulário(Estoque)'''
@@ -26,8 +27,8 @@ def dar_baixa_estoque(form):
     for item in produtos:
         produto = Produto.objects.get(pk=item.produto.pk)
         produto.estoque = item.saldo
-        produto.save()  
-    print('Estoque atualizado com sucesso.')  
+        produto.save()
+    print('Estoque atualizado com sucesso.')
 
 
 def estoque_add(request, template_name, movimento, url):
@@ -42,7 +43,7 @@ def estoque_add(request, template_name, movimento, url):
     )
     if request.method == 'POST':
         form = EstoqueForm(request.POST, instance=estoque_form, prefix='main')
-        formset = item_estoque_formset(request.POST, instance=estoque_form, prefix='estoque')
+        formset = item_estoque_formset(request.POST, instance=estoque_form, prefix='estoque') # noqa
         if form.is_valid() and formset.is_valid():
             form = form.save()
             form.movimento = movimento
@@ -53,7 +54,7 @@ def estoque_add(request, template_name, movimento, url):
     else:
         form = EstoqueForm(instance=estoque_form, prefix='main')
         formset = item_estoque_formset(instance=estoque_form, prefix='estoque')
-    context = {'form':form, 'formset':formset}
+    context = {'form': form, 'formset': formset}
     return context
 
 
@@ -66,17 +67,20 @@ def estoque_entrada_add(request):
         return HttpResponseRedirect(resolve_url(url, context.get('pk')))
     return render(request, template_name, context)
 
+
 def estoque_saida_list(request):
-    template_name = 'estoque/estoque_saida_list.html'
+    template_name = 'estoque/estoque_list.html'
     objects = EstoqueSaida.objects.all()
-    context = {'object_list': objects}
+    context = {'object_list': objects, 'titulo': 'Saida', 'url_add': 'estoque:url_estoque_saida_add'} # noqa
     return render(request, template_name, context)
+
 
 def estoque_saida_detail(request, pk):
     template_name = 'estoque/estoque_saida_detail.html'
     obj = EstoqueSaida.objects.get(pk=pk)
     context = {'object': obj}
     return render(request, template_name, context)
+
 
 def estoque_saida_add(request):
     template_name = 'estoque/estoque_saida_form.html'
