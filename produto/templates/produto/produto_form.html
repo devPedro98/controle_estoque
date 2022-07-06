@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% load widget_tweaks %}
 
 {% block content %}
@@ -25,5 +25,5 @@
 {% endblock content %}
 
 {% block js %}
-<script src="{% static 'js/produto.js' %}"></script>
+    <script src="{% static 'js/produto.js' %}"></script>
 {% endblock js %}
