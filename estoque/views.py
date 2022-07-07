@@ -63,7 +63,8 @@ def estoque_add(request, template_name, movimento, url):
         form = EstoqueForm(request.POST, instance=estoque_form, prefix='main')
         formset = item_estoque_formset(request.POST, instance=estoque_form, prefix='estoque') # noqa
         if form.is_valid() and formset.is_valid():
-            form = form.save()
+            form = form.save(commit=False)
+            form.funcionario = request.user
             form.movimento = movimento
             form.save()
             formset.save()
